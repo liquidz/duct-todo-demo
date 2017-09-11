@@ -1,0 +1,2 @@
+{:duct.core/environment :development
+ :duct.core/include ["duct_todo_demo/config"]}
