@@ -10,7 +10,13 @@
   (context "/api" []
     ;; get all todo
     (GET "/" []
-      {:body (-> options :db db/get-all-todosa)}
+      {:body (-> options :db db/get-all-todos)}
+      )
+    ;(GET "/:id" []
+    ;  {:body }
+    ;  )
+    (PUT "/" {:keys [params]}
+      {:body (-> options :db (db/insert-todo! [(:name params) (:description params)]))}
       )
     )
   )

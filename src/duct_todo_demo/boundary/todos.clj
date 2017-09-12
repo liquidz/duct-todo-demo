@@ -3,14 +3,14 @@
             duct.database.sql))
  
 (defprotocol Todo
-  (get-tables [db])
-  (get-todos [db])
+  (get-all-todos [db])
+  (insert-todo! [db todo])
   )
 
 (extend-protocol Todo
   duct.database.sql.Boundary
   (get-all-todos [{:keys [spec]}]
-    (jdbc/query spec ["select * from todos"])
-    )
-  (get-tables [{:keys [spec]}]
-    (jdbc/query spec ["select name from sqlite_master where type = 'table'"])))
+    (jdbc/query spec ["select * from todos"]))
+  (insert-todo! [{:keys [spec]} todo-record]
+    (jdbc/insert! spec :todos [:name :description] todo-record))
+  )

@@ -4,15 +4,17 @@
  :duct.module/logging {}
  :duct.module.web/site {}
  :duct.module.web/api {}
+ :duct.middleware.web/defaults
+ {:security {:anti-forgery false}}
+
  :duct.module/cljs {:main duct-todo-demo.client}
  :duct.module/sql {}
 
  :duct.migrator/ragtime
- {:migrations [#ig/ref :todo.migration/create-todos]
-  }
+ {:migrations [#ig/ref :todo.migration/create-todos]}
 
  [:duct.migrator.ragtime/sql :todo.migration/create-todos]
- {:up   ["CREATE TABLE todos (id INTEGER, name TEXT, description TEXT);"]
+ {:up   ["CREATE TABLE todos (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, description TEXT);"]
   :down ["DROP TABLE todos;"]}
 
  :duct.router/cascading
